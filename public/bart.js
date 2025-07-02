@@ -1,55 +1,64 @@
-const downloadBtn = document.getElementById("download-btn");
-const textInput = document.getElementById("text-input");
-const previewImage = document.getElementById("preview-image");
-const canvas = document.createElement("canvas");
-const ctx = canvas.getContext("2d");
+window.onload = function () {
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  const downloadBtn = document.getElementById("download");
+  const inputText = document.getElementById("text");
 
-const backgroundImage = new Image();
-backgroundImage.src = "./bart-template.png"; // letakkan gambar ini di public folder
+  const img = new Image();
+  img.src = "/Screenshot_20250702-224314.jpg"; // Gambar polos Bart
 
-backgroundImage.onload = () => {
-  canvas.width = backgroundImage.width;
-  canvas.height = backgroundImage.height;
-  drawCanvas();
-};
+  img.onload = () => {
+    canvas.width = img.width;
+    canvas.height = img.height;
 
-function drawCanvas() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(backgroundImage, 0, 0);
+    // Gambar background awal
+    ctx.drawImage(img, 0, 0);
+  };
 
-  const text = textInput.value;
-  ctx.font = "bold 32px Arial";
-  ctx.fillStyle = "#000";
-  ctx.textAlign = "center";
-  wrapText(ctx, text, canvas.width / 2, 470, 400, 36);
+  inputText.addEventListener("input", () => {
+    // Bersihkan dan render ulang gambar
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0);
 
-  // update preview image
-  previewImage.src = canvas.toDataURL("image/png");
-}
+    // Tulis teks
+    ctx.font = "bold 36px Arial";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
 
-textInput.addEventListener("input", drawCanvas);
+    // Bungkus teks panjang
+    const maxWidth = canvas.width - 60;
+    const lineHeight = 40;
+    const lines = wrapText(ctx, inputText.value, maxWidth);
 
-downloadBtn.addEventListener("click", () => {
-  const link = document.createElement("a");
-  link.download = "bart-generator.png";
-  link.href = canvas.toDataURL("image/png");
-  link.click();
-});
+    lines.forEach((line, i) => {
+      ctx.fillText(line, canvas.width / 2, canvas.height - 100 + i * lineHeight);
+    });
+  });
 
-function wrapText(context, text, x, y, maxWidth, lineHeight) {
-  const words = text.split(" ");
-  let line = "";
-  for (let n = 0; n < words.length; n++) {
-    const testLine = line + words[n] + " ";
-    const metrics = context.measureText(testLine);
-    const testWidth = metrics.width;
-    if (testWidth > maxWidth && n > 0) {
-      context.fillText(line, x, y);
-      line = words[n] + " ";
-      y += lineHeight;
-    } else {
-      line = testLine;
+  downloadBtn.addEventListener("click", () => {
+    const link = document.createElement("a");
+    link.download = "bart-generator.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  });
+
+  // Fungsi untuk membungkus teks panjang jadi banyak baris
+  function wrapText(ctx, text, maxWidth) {
+    const words = text.split(" ");
+    const lines = [];
+    let currentLine = words[0];
+
+    for (let i = 1; i < words.length; i++) {
+      const word = words[i];
+      const width = ctx.measureText(currentLine + " " + word).width;
+      if (width < maxWidth) {
+        currentLine += " " + word;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
     }
+    lines.push(currentLine);
+    return lines;
   }
-  context.fillText(line, x, y);
-}
+};
