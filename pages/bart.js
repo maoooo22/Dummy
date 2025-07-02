@@ -1,85 +1,62 @@
-// pages/bart.js
-import { useRef, useState } from 'react'
-import Head from 'next/head'
-import html2canvas from 'html2canvas'
+// bart.js
 
-export default function BartGenerator() {
-  const [text, setText] = useState('')
-  const [preview, setPreview] = useState(false)
-  const outputRef = useRef(null)
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("bart-form");
+  const textInput = document.getElementById("text-input");
+  const canvas = document.getElementById("bart-canvas");
+  const ctx = canvas.getContext("2d");
+  const downloadBtn = document.getElementById("download-btn");
 
-  const handleDownload = async () => {
-    if (!outputRef.current) return
-    const canvas = await html2canvas(outputRef.current)
-    const link = document.createElement('a')
-    link.download = 'bart.png'
-    link.href = canvas.toDataURL('image/png')
-    link.click()
+  canvas.width = 800;
+  canvas.height = 600;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const text = textInput.value.trim();
+    if (!text) return;
+
+    // Gambar latar putih polos
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Gambar teks
+    ctx.fillStyle = "#000000";
+    ctx.font = "bold 32px Outfit, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    wrapText(ctx, text, canvas.width / 2, canvas.height / 2, 700, 40);
+  });
+
+  downloadBtn.addEventListener("click", () => {
+    const image = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.href = image;
+    link.download = "bart-generator.png";
+    link.click();
+  });
+
+  // Fungsi wrap text
+  function wrapText(context, text, x, y, maxWidth, lineHeight) {
+    const words = text.split(" ");
+    let line = "";
+    let lines = [];
+    for (let i = 0; i < words.length; i++) {
+      const testLine = line + words[i] + " ";
+      const metrics = context.measureText(testLine);
+      const testWidth = metrics.width;
+      if (testWidth > maxWidth && i > 0) {
+        lines.push(line);
+        line = words[i] + " ";
+      } else {
+        line = testLine;
+      }
+    }
+    lines.push(line);
+
+    const startY = y - (lines.length / 2) * lineHeight;
+    lines.forEach((l, i) => {
+      context.fillText(l.trim(), x, startY + i * lineHeight);
+    });
   }
-
-  return (
-    <>
-      <Head>
-        <title>Bart Generator - Marimo</title>
-      </Head>
-
-      <main style={{ padding: '40px', textAlign: 'center', background: '#111', color: '#fff', minHeight: '100vh' }}>
-        <h1 style={{ fontSize: '2rem', color: '#00ffee' }}>🧠 Bart Generator</h1>
-
-        <textarea
-          placeholder="Tulis kata-kata Bart lo di sini..."
-          rows={4}
-          style={{
-            width: '90%',
-            maxWidth: '500px',
-            marginTop: '20px',
-            padding: '10px',
-            fontSize: '1rem',
-            borderRadius: '10px',
-            border: 'none',
-            outline: 'none',
-            resize: 'none'
-          }}
-          value={text}
-          onChange={e => setText(e.target.value)}
-        />
-
-        <div style={{ marginTop: '20px' }}>
-          <button onClick={() => setPreview(true)} style={buttonStyle}>Preview</button>
-          <button onClick={handleDownload} style={{ ...buttonStyle, background: '#00ffee', color: '#000' }}>
-            Download PNG
-          </button>
-        </div>
-
-        {preview && (
-          <div ref={outputRef} style={outputStyle}>
-            <p style={{ whiteSpace: 'pre-wrap', fontSize: '1.2rem' }}>{text}</p>
-          </div>
-        )}
-      </main>
-    </>
-  )
-}
-
-const buttonStyle = {
-  padding: '10px 20px',
-  margin: '10px',
-  borderRadius: '8px',
-  background: '#222',
-  color: '#00ffee',
-  border: '2px solid #00ffee',
-  cursor: 'pointer',
-  fontWeight: 'bold',
-  transition: '0.3s',
-}
-
-const outputStyle = {
-  margin: '40px auto 0',
-  background: '#fff',
-  color: '#000',
-  padding: '20px',
-  borderRadius: '15px',
-  maxWidth: '500px',
-  minHeight: '100px',
-  boxShadow: '0 0 10px #00ffee'
-            }
+});
