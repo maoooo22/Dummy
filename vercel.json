@@ -1,12 +1,13 @@
 {
   "cleanUrls": true,
-  {
   "rewrites": [
-    { "source": "/bart", "destination": "/bart.html" }
-  ]
-}
+    {
       "source": "/",
       "destination": "/index.html"
+    },
+    {
+      "source": "/bart",
+      "destination": "/bart.html"
     }
   ]
 }
