@@ -7,11 +7,13 @@ canvas.width = 1080;
 canvas.height = 1080;
 
 generateBtn.addEventListener("click", () => {
-  const text = document.getElementById("text-input").value;
-  const img = new Image();
-  img.src = "Screenshot_20250702-224314.jpg";
+  const text = document.getElementById("text-input").value.trim();
+  if (!text) return alert("Teks tidak boleh kosong!");
 
-  img.onload = function () {
+  const img = new Image();
+  img.src = "/Screenshot_20250702-224314.jpg";
+  
+  img.onload = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
