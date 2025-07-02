@@ -1,0 +1,43 @@
+body {
+  background-color: #111;
+  color: #00ffee;
+  font-family: 'Outfit', sans-serif;
+  padding: 20px;
+  text-align: center;
+}
+
+textarea {
+  width: 90%;
+  max-width: 500px;
+  height: 120px;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+button {
+  background-color: #00ffee;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 10px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #00ddcc;
+}
+
+pre {
+  background: #222;
+  color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+  max-width: 500px;
+  margin-inline: auto;
+  white-space: pre-wrap;
+}
