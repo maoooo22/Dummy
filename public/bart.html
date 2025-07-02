@@ -4,20 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bart Generator</title>
-  <link rel="stylesheet" href="/bart.css">
-  <script src="/bart.js" defer></script>
+  <link rel="stylesheet" href="/bart.css" />
 </head>
 <body>
-
   <h1>Bart Generator</h1>
-
-  <input type="text" id="text-input" placeholder="Masukkan teks kamu..." />
-  <br />
+  <textarea id="text-input" placeholder="Masukkan teks kamu..."></textarea><br />
   <button id="generate-btn">Generate</button>
+  <a id="download-btn" download="bart.png">Download</a>
   <br />
   <canvas id="canvas" width="1080" height="1080"></canvas>
-  <br />
-  <a id="download-btn" download="bart.png">Download</a>
 
+  <script src="/bart.js"></script>
 </body>
 </html>
