@@ -1,1 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portofolio Marimo</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
 
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Marimo</div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    <ul class="nav-links" id="navMenu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">Tentang</a></li>
+      <li><a href="#skills">Skill</a></li>
+      <li><a href="#projects">Proyek</a></li>
+      <li><a href="#contact">Media Sosial</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-style" id="home">
+    <div class="hero-content">
+      <h1 class="main-title">HI, I'M MARIMO<br>
+        <span class="highlight cursor" id="type-text"></span>
+      </h1>
+      <p class="hero-desc">Hi gue adalah marimo gua sekarang duduk di bangku SMP. gua tinggal di Indonesia, bekasi, gua udah berhasil ngebuat project.</p>
+      <a href="#projects" class="btn-primary">Lihat Proyek</a>
+    </div>
+  </section>
+
+  <!-- Tentang -->
+  <section class="section" id="about">
+    <h2>Tentang Saya</h2>
+    <p>I am a junior high school student from Serang Baru, Bekasi. I am interested in the world of web development, experiments. I love learning and exploring new things.</p>
+  </section>
+
+  <!-- Skill -->
+  <section class="section" id="skills">
+    <h2>Skill Saya</h2>
+    <div class="skill">
+      <span><i class="fab fa-html5" style="color:#e34c26;"></i> HTML</span>
+      <div class="skill-bar">
+        <div class="skill-fill" style="width: 83%">83%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span><i class="fab fa-css3-alt" style="color:#264de4;"></i> CSS</span>
+      <div class="skill-bar">
+        <div class="skill-fill" style="width: 80%">80%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span><i class="fab fa-js-square" style="color:#f0db4f;"></i> JavaScript</span>
+      <div class="skill-bar">
+        <div class="skill-fill" style="width: 70%">70%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span><i class="fab fa-python" style="color:#306998;"></i> Python</span>
+      <div class="skill-bar">
+        <div class="skill-fill" style="width: 75%">75%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proyek -->
+  <section class="section" id="projects">
+    <h2>Project marimoo</h2>
+    <div class="projects-container">
+      <div class="project-card">
+        <img src="https://i.postimg.cc/8F7t34X2/Screenshot-20250623-145753.jpg" 
+             alt="Tampilan NGL Bot" 
+             class="ngl-image" />
+        <h3>NGL Bot</h3>
+        <p>Tool spam pesan anonim untuk NGL. Dibuat dengan frontend interaktif dan backend API milik sendiri.</p>
+        <ul style="padding-left: 20px; text-align: left; font-size: 0.9rem;">
+          <li>✅ Custom pesan teks dan bisa di atur jumlahnya</li>
+          <li>✅ Input username & jumlah pesan</li>
+          <li>✅ Backend fetch API langsung dari browser</li>
+          <li>✅ Tampilan clean dan responsif</li>
+        </ul>
+        <p style="margin-top: 10px;">Web: <a href="https://ngl-spam-inky.vercel.app" target="_blank">ngl-spam-inky.vercel.app</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Media Sosial -->
+  <section class="section" id="contact">
+    <h2>Media Sosial</h2>
+    <div class="social-container">
+      <div class="social-icon" onclick="toggleSocial('ig')">
+        <i class="fab fa-instagram"></i>
+        <a href="https://instagram.com/marimo_2553" target="_blank" id="ig-username" class="username hidden"> @marimo_2553 </a>
+      </div>
+      <div class="social-icon" onclick="toggleSocial('tiktok')">
+        <i class="fab fa-tiktok"></i>
+        <a href="https://tiktok.com/@galngpremium0" target="_blank" id="tiktok-username" class="username hidden"> @galngpremium0 </a>
+      </div>
+      <div class="social-icon" onclick="toggleSocial('telegram')">
+        <i class="fab fa-telegram"></i>
+        <a href="https://t.me/maoo_2553" target="_blank" id="telegram-username" class="username hidden"> @maoo_2553 </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Komentar -->
+<section class="section" id="komentar">
+  <h2>Komentar</h2>
+
+  <form id="comment-form">
+    <input type="email" id="email" placeholder="Gmail kamu" required />
+    <input type="text" id="username" placeholder="Username" required />
+    <textarea id="comment" placeholder="Tulis komentar..." required></textarea>
+    <button type="submit">Kirim Komentar</button>
+  </form>
+
+  <div id="comments-list">
+    <!-- Komentar dari supabase akan tampil di sini -->
+  </div>
+</section>
+  
+  <!-- Tambahkan ini setelah section media sosial --><section class="section" id="comments">
+  <h2>Tinggalkan Komentar</h2>
+  <form id="commentForm">
+    <input type="email" id="email" placeholder="Gmail kamu" required><br>
+    <input type="text" id="username" placeholder="Username" required><br>
+    <textarea id="comment" placeholder="Komentar kamu..." required></textarea><br>
+    <button type="submit">Kirim</button>
+  </form>
+  <div id="commentsList"></div>
+</section>
+  <script>
+  // Submit komentar
+  document.getElementById('commentForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const username = document.getElementById('username').value;
+    const comment = document.getElementById('comment').value;
+
+    const res = await fetch('/api/comments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, username, comment })
+    });
+
+    if (res.ok) {
+      alert('Komentar berhasil dikirim!');
+      this.reset();
+      loadComments();
+    } else {
+      alert('Gagal mengirim komentar.');
+    }
+  });
+
+  // Ambil komentar
+  async function loadComments() {
+    const res = await fetch('/api/comments');
+    const data = await res.json();
+    if (data.success) {
+      const container = document.getElementById('commentsList');
+      container.innerHTML = data.comments.map(c =>
+        `<div style="margin-bottom: 10px;"><strong>${c.username}</strong> (${c.email}):<br>${c.comment}</div>`
+      ).join('');
+    }
+  }
+
+  // Load awal
+  window.addEventListener('load', loadComments);
+      </script>
+
+  <footer>
+    &copy; 2025 Marimo. Dibuat dengan hati ❤️
+  </footer>
+
+  <script>
+    // Navbar toggle
+    function toggleMenu() {
+      document.getElementById('navMenu').classList.toggle('show');
+    }
+
+    // Typing Effect
+    const typeText = document.getElementById("type-text");
+    const words = ["PLAYER ROBLOX", "WEB CODE", "CREATIVE CODER", "PLAYER EPEP"];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingDelay = 100;
+    let delayStart = true;
+
+    function type() {
+      const currentWord = words[wordIndex];
+
+      if (delayStart) {
+        delayStart = false;
+        return setTimeout(type, 1000); // 1 detik delay di awal
+      }
+
+      if (!isDeleting && charIndex < currentWord.length) {
+        typeText.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+        typingDelay = 100;
+      } else if (isDeleting && charIndex > 0) {
+        typeText.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+        typingDelay = 50;
+      } else {
+        isDeleting = !isDeleting;
+        if (!isDeleting) wordIndex = (wordIndex + 1) % words.length;
+        typingDelay = 700;
+      }
+
+      setTimeout(type, typingDelay);
+    }
+
+    type();
+
+    // Toggle social usernames
+    function toggleSocial(platform) {
+      const platforms = ["ig", "tiktok", "telegram"];
+      platforms.forEach(p => {
+        const el = document.getElementById(`${p}-username`);
+        if (p === platform) {
+          el.classList.toggle("hidden");
+        } else {
+          el.classList.add("hidden");
+        }
+      });
+    }
+  </script><script type="module">
+  const SUPABASE_URL = 'https://hyspyxgkxsvtuxkusuad.supabase.co';
+  const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY;
+  const table = 'comments';
+
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const form = document.getElementById('comment-form');
+  const list = document.getElementById('comments-list');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    const username = document.getElementById('username').value.trim();
+    const comment = document.getElementById('comment').value.trim();
+
+    if (!email || !username || !comment) return;
+
+    const { error } = await supabase.from(table).insert([{ email, username, comment }]);
+    if (error) {
+      alert('Gagal mengirim komentar');
+    } else {
+      form.reset();
+      loadComments();
+    }
+  });
+
+  async function loadComments() {
+    const { data, error } = await supabase
+      .from(table)
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (!error && data.length) {
+      list.innerHTML = '';
+      data.forEach(({ email, username, comment }) => {
+        const div = document.createElement('div');
+        div.className = 'comment-box';
+        div.innerHTML = `
+          <div class="email">${email}</div>
+          <div class="username">${username}</div>
+          <div class="text">${comment}</div>
+        `;
+        list.appendChild(div);
+      });
+    }
+  }
+
+  loadComments();
+      </script>
+
+</body>
+  </html>
