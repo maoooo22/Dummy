@@ -3,26 +3,24 @@ const ctx = canvas.getContext("2d");
 const generateBtn = document.getElementById("generate-btn");
 const downloadBtn = document.getElementById("download-btn");
 
-canvas.width = 1080;
-canvas.height = 1080;
-
 function wrapText(context, text, x, y, maxWidth, lineHeight) {
   const words = text.split(" ");
   let line = "";
-  let lines = [];
+  const lines = [];
 
   for (let n = 0; n < words.length; n++) {
     const testLine = line + words[n] + " ";
-    const testWidth = context.measureText(testLine).width;
+    const metrics = context.measureText(testLine);
+    const testWidth = metrics.width;
 
-    if (testWidth > maxWidth && line !== "") {
-      lines.push(line.trim());
+    if (testWidth > maxWidth && n > 0) {
+      lines.push(line);
       line = words[n] + " ";
     } else {
       line = testLine;
     }
   }
-  lines.push(line.trim());
+  lines.push(line);
 
   for (let i = 0; i < lines.length; i++) {
     context.fillText(lines[i], x, y + i * lineHeight);
@@ -31,27 +29,22 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
 
 generateBtn.addEventListener("click", () => {
   const text = document.getElementById("text-input").value.trim();
-  if (!text) return alert("Masukkan teks dulu!");
-
   const img = new Image();
   img.src = "/Screenshot_20250702-224314.jpg";
-  img.onload = () => {
+  img.onload = function () {
+    canvas.width = 1080;
+    canvas.height = 1080;
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-    ctx.font = "bold 48px Arial";
+    ctx.font = "bold 50px Arial";
     ctx.fillStyle = "#ffffff";
     ctx.textAlign = "center";
     ctx.textBaseline = "top";
 
-    const x = canvas.width / 2;
-    const y = canvas.height - 220;
-    const maxWidth = 900;
-    const lineHeight = 60;
+    wrapText(ctx, text, canvas.width / 2, canvas.height - 250, 900, 60);
 
-    wrapText(ctx, text, x, y, maxWidth, lineHeight);
-
-    // siapin download
     const dataURL = canvas.toDataURL("image/png");
     downloadBtn.href = dataURL;
   };
