@@ -13,10 +13,9 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
 
   for (let n = 0; n < words.length; n++) {
     const testLine = line + words[n] + " ";
-    const metrics = context.measureText(testLine);
-    const testWidth = metrics.width;
+    const testWidth = context.measureText(testLine).width;
 
-    if (testWidth > maxWidth && n > 0) {
+    if (testWidth > maxWidth && line !== "") {
       lines.push(line.trim());
       line = words[n] + " ";
     } else {
@@ -25,9 +24,9 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
   }
   lines.push(line.trim());
 
-  lines.forEach((l, i) => {
-    context.fillText(l, x, y + i * lineHeight);
-  });
+  for (let i = 0; i < lines.length; i++) {
+    context.fillText(lines[i], x, y + i * lineHeight);
+  }
 }
 
 generateBtn.addEventListener("click", () => {
@@ -36,8 +35,7 @@ generateBtn.addEventListener("click", () => {
 
   const img = new Image();
   img.src = "/Screenshot_20250702-224314.jpg";
-
-  img.onload = function () {
+  img.onload = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
@@ -46,12 +44,14 @@ generateBtn.addEventListener("click", () => {
     ctx.textAlign = "center";
     ctx.textBaseline = "top";
 
-    const maxWidth = 800;
     const x = canvas.width / 2;
     const y = canvas.height - 220;
+    const maxWidth = 900;
+    const lineHeight = 60;
 
-    wrapText(ctx, text, x, y, maxWidth, 60);
+    wrapText(ctx, text, x, y, maxWidth, lineHeight);
 
+    // siapin download
     const dataURL = canvas.toDataURL("image/png");
     downloadBtn.href = dataURL;
   };
