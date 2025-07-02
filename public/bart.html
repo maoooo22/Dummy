@@ -1,16 +1,22 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bart Generator Polos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bart Generator</title>
   <link rel="stylesheet" href="bart.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Bart Generator</h1>
-    <textarea id="inputText" placeholder="Tulis kalimat untuk Bart..."></textarea>
-    <button onclick="generateBart()">Generate</button>
-    <button onclick="downloadImage()">Download PNG</button><canvas id="bartCanvas" width="500" height="300"></canvas>
 
-  </div>  <script src="bart.js"></script></body>
+  <h1>Bart Generator</h1>
+  <input type="text" id="text-input" placeholder="Masukkan teks kamu..." />
+  <br />
+  <button id="generate-btn">Generate</button>
+  <br />
+  <canvas id="canvas" width="1080" height="1080"></canvas>
+  <br />
+  <a id="download-btn" download="bart.png">Download</a>
+
+  <script src="bart.js"></script>
+</body>
 </html>
