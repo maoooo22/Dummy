@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bart Generator</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="bart.css" />
+</head>
+<body>
+  <h1>🛠️ Bart Generator</h1>
+  <p>Masukkan teks di bawah lalu tekan Generate untuk melihat hasilnya</p>
+
+  <textarea id="input" placeholder="Tulis sesuatu..."></textarea><br/>
+  <button onclick="generate()">Generate</button>
+  <button onclick="download()">Download</button>
+
+  <pre id="output">Hasil akan muncul di sini...</pre>
+
+  <script>
+    function generate() {
+      const input = document.getElementById("input").value.trim();
+      if (!input) {
+        alert("Masukkan teks dulu!");
+        return;
+      }
+
+      const generated = `// Bart Generator Result\n\n` + input.split('').reverse().join('');
+      document.getElementById("output").innerText = generated;
+    }
+
+    function download() {
+      const text = document.getElementById("output").innerText;
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'bart-output.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
