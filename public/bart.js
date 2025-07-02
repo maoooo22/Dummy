@@ -7,22 +7,25 @@ canvas.width = 1080;
 canvas.height = 1080;
 
 generateBtn.addEventListener("click", () => {
-  const text = document.getElementById("text-input").value.trim();
-  if (!text) return alert("Teks tidak boleh kosong!");
+  const textInput = document.getElementById("text-input").value.trim();
+  if (!textInput) return alert("Masukkan teks dulu!");
 
   const img = new Image();
   img.src = "/Screenshot_20250702-224314.jpg";
-  
-  img.onload = () => {
+
+  img.onload = function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-    ctx.font = "bold 60px Arial";
+    ctx.font = "bold 50px Arial";
     ctx.fillStyle = "#ffffff";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-    ctx.fillText(text, canvas.width / 2, canvas.height - 150);
+    const lines = textInput.split("\n"); // biar bisa enter
+    lines.forEach((line, index) => {
+      ctx.fillText(line, canvas.width / 2, canvas.height - 200 + index * 60);
+    });
 
     const dataURL = canvas.toDataURL("image/png");
     downloadBtn.href = dataURL;
