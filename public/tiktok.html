@@ -4,20 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TikTok Downloader</title>
-  <link rel="stylesheet" href="/tiktok.css">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/script-tiktok.js" defer></script>
 </head>
 <body>
-
   <div class="container">
     <h1>TikTok Downloader</h1>
-    <input type="text" id="tt-url" placeholder="Tempel link TikTok di sini..." />
-    <div class="buttons">
-      <button onclick="downloadVideo()">Download Video</button>
-      <button onclick="downloadAudio()">Download Musik</button>
-    </div>
-    <div id="result"></div>
-  </div>
+    <input type="text" id="urlInput" placeholder="Masukkan link TikTok">
+    <button id="downloadBtn">Download</button>
 
-  <script src="/script-tt.js"></script>
+    <div id="result" style="display:none;">
+      <h2>Hasil:</h2>
+      <a id="videoLink" href="#" target="_blank">Download Video</a><br>
+      <a id="musicLink" href="#" target="_blank">Download Musik</a>
+    </div>
+  </div>
 </body>
 </html>
