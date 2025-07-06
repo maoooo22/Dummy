@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/bart",
@@ -8,6 +9,5 @@
       "source": "/tiktok",
       "destination": "/tiktok.html"
     }
-  ],
-  "cleanUrls": true
+  ]
 }
