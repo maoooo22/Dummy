@@ -9,6 +9,5 @@
       "destination": "/tiktok.html"
     }
   ],
-  "cleanUrls": true,
-  "trailingSlash": false
+  "cleanUrls": true
 }
