@@ -1,13 +1,6 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    {
-      "source": "/bart",
-      "destination": "/bart.html"
-    },
-    {
-      "source": "/tiktok",
-      "destination": "/tiktok.html"
-    }
+    { "source": "/tiktok", "destination": "/tiktok.html" }
   ]
 }
