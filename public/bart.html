@@ -3,17 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bart Generator</title>
-  <link rel="stylesheet" href="/bart.css" />
+  <title>Brat Video Generator</title>
+  <link rel="stylesheet" href="/brat.css">
 </head>
 <body>
-  <h1>Bart Generator</h1>
-  <textarea id="text-input" placeholder="Masukkan teks kamu..."></textarea><br />
-  <button id="generate-btn">Generate</button>
-  <a id="download-btn" download="bart.png">Download</a>
-  <br />
-  <canvas id="canvas" width="1080" height="1080"></canvas>
+  <div class="container">
+    <h1>Brat Video Generator</h1>
+    <p>Masukkan teks, lalu screen capture hasilnya!</p>
 
-  <script src="/bart.js"></script>
+    <textarea id="inputText" placeholder="Contoh: Hai aku marimo ganteng banget..." rows="5"></textarea>
+    <button onclick="kirimTeks()">Kirim</button>
+
+    <div id="loading" class="hidden">Membuat video...</div>
+    <div id="preview" class="hidden">
+      <h3>Hasil:</h3>
+      <video id="resultVideo" controls autoplay loop></video>
+    </div>
+  </div>
+
+  <script>
+    async function kirimTeks() {
+      const text = document.getElementById("inputText").value.trim();
+      const loading = document.getElementById("loading");
+      const preview = document.getElementById("preview");
+      const resultVideo = document.getElementById("resultVideo");
+
+      if (!text) return alert("Masukkan teks dulu!");
+
+      loading.classList.remove("hidden");
+      preview.classList.add("hidden");
+
+      try {
+        const res = await fetch("/api/bratvideo", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text })
+        });
+
+        if (!res.ok) throw new Error("Gagal membuat video!");
+
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+
+        resultVideo.src = url;
+        loading.classList.add("hidden");
+        preview.classList.remove("hidden");
+      } catch (err) {
+        alert("Terjadi kesalahan: " + err.message);
+        loading.classList.add("hidden");
+      }
+    }
+  </script>
 </body>
 </html>
